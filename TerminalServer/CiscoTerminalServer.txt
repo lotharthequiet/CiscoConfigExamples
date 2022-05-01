@@ -1,0 +1,229 @@
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname TerminalServer
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 4 3sE16ydN5555578884746745634535gRtVzsNtorwKKFwa3KY
+!
+no aaa new-model
+memory-size iomem 10
+!
+ip cef
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name demolab.com
+ip host Device1 2003 172.20.20.20
+ip host Device2 2004 172.20.20.20
+ip host Device3 2005 172.20.20.20
+ip host Device4 2006 172.20.20.20
+ip host Device5 2007 172.20.20.20
+ip host Device6 2008 172.20.20.20
+ip host Device7 2009 172.20.20.20
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+username labuser password 7 324534525490005
+username labuser autocommand menu TS
+username backdoor password 7 0D0D0D0D0D0D
+!
+redundancy
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 172.20.20.20 255.255.255.255
+!
+interface Embedded-Service-Engine0/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 192.168.1.10 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Serial0/1/0
+ no ip address
+ shutdown
+!
+interface Serial0/2/0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/3/0
+ no ip address
+!
+interface GigabitEthernet0/3/1
+ no ip address
+!
+interface GigabitEthernet0/3/2
+ no ip address
+!
+interface GigabitEthernet0/3/3
+ no ip address
+!
+interface Vlan1
+ no ip address
+!
+interface Async0/0/0
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/1
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/2
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/3
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/4
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/5
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/6
+ no ip address
+ encapsulation slip
+!
+interface Async0/0/7
+ no ip address
+ encapsulation slip
+!
+ip default-gateway 192.168.1.1
+ip forward-protocol nd
+!
+no ip http server
+ip http secure-server
+!
+!
+!
+menu TS title ^C
+********************************************************
+                      Lab Console Server
+    To exit from a device, use Escape Sequence
+            (CTRL+SHIFT+6 then press x)
+
+     TerminalServer.demolab.com - 192.168.1.10
+********************************************************
+^C
+menu TS prompt ^C Selection: ^C
+menu TS text 1 Connect to Device1
+menu TS command 1 resume Device1 /connect telnet Device1
+menu TS text 2 Connect to Device2
+menu TS command 2 resume Device2 /connect telnet Device2
+menu TS text 3 Connect to Device3
+menu TS command 3 resume Device3 /connect telnet Device3
+menu TS text 4 Connect to Device4
+menu TS command 4 resume Device4 /connect telnet Device4
+menu TS text 5 Connect to Device5
+menu TS command 5 resume Device5 /connect telnet Device5
+menu TS text 6 Connect to Device6
+menu TS command 6 resume Device6 /connect telnet Device6
+menu TS text 7 Connect to Device7
+menu TS command 7 resume Device7 /connect telnet Device7
+menu TS text s Show all established sessions
+menu TS command s show sessions
+menu TS options s pause
+menu TS text c Clear session number (IE - c2)
+menu TS text e Exit Menu
+menu TS command e menu-exit
+menu TS text q Disconnect
+menu TS command q exit
+menu TS command c1 c1
+menu TS command c2 c2
+menu TS command c3 c3
+menu TS command c4 c4
+menu TS command c5 c5
+menu TS command c6 c6
+menu TS command c7 c7
+menu TS clear-screen
+menu TS line-mode
+!
+!
+!
+control-plane
+!
+!
+alias exec c1 disconnect Device1
+alias exec c2 disconnectDevice2
+alias exec c3 disconnect Device3
+alias exec c4 disconnect Device4
+alias exec c5 disconnect Device5
+alias exec c6 disconnect Device6
+alias exec c7 disconnect Device7
+!
+line con 0
+line aux 0
+line 2
+ no activation-character
+ no exec
+ transport preferred none
+ transport output pad telnet rlogin lapb-ta mop udptn v120 ssh
+ stopbits 1
+line 0/0/0 0/0/6
+ exec-timeout 0 0
+ password 7 11564536346246
+ login
+ transport input telnet
+ transport output all
+ escape-character 3
+ stopbits 1
+ flowcontrol hardware
+line 0/0/7
+ exec-timeout 0 0
+ password 7 2353652526453666
+ login
+ transport input telnet
+ transport output all
+ escape-character 3
+ stopbits 1
+ flowcontrol hardware
+line vty 0 4
+ exec-timeout 60 0
+ privilege level 15
+ login local
+ transport input telnet ssh
+ transport output all
+!
+scheduler allocate 20000 1000
+!
+end
