@@ -1,0 +1,15 @@
+Cisco Terminal Server Instructions
+-----------------------------------
+
+
+Ever need access to a bunch of serial console ports over TCP/IP? This comes in handy when configuring several Cisco, Juniper, Aruba, etc. devices that have serial ports. 
+
+
+
+Hardware Requirement: 
+(1) CISCO2901/K9
+(1) HWIC-8A
+(1) CAB-HD8-ASYNC
+
+
+NOTE - Several other Cisco router and WIC/HWIC combinations can be used with this method. Please see the Cisco Datasheet here: https://www.cisco.com/c/en/us/products/collateral/interfaces-modules/1800-2800-3800-series-16-port-async-high-speed-wan-interface-card/product_data_sheet0900aecd80274416.html
